@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Lista de Tarefas',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -378,35 +379,6 @@ class _ListaTarefasScreenState extends State<ListaTarefasScreen> {
         title: Text('Lista de Tarefas'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.delete_sweep),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text('Limpar Tarefas Concluídas'),
-                  content: Text('Deseja remover todas as tarefas concluídas?'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text('Cancelar'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _gerenciador.removerTarefasConcluidas();
-                        Navigator.pop(context);
-                        setState(() {});
-                        _mostrarMensagem('Tarefas concluídas removidas!');
-                      },
-                      child: Text('Remover'),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -445,11 +417,51 @@ class _ListaTarefasScreenState extends State<ListaTarefasScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _mostrarDialogoAdicionar,
-        child: Icon(Icons.add),
-        backgroundColor: Colors.blue,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 16.0),
+            child: FloatingActionButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text('Limpar Tarefas Concluídas'),
+                    content: Text('Deseja remover todas as tarefas concluídas?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text('Cancelar'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          _gerenciador.removerTarefasConcluidas();
+                          Navigator.pop(context);
+                          setState(() {});
+                          _mostrarMensagem('Tarefas concluídas removidas!');
+                        },
+                        child: Text('Remover'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: Icon(Icons.delete_sweep),
+              backgroundColor: Colors.red,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: FloatingActionButton(
+              onPressed: _mostrarDialogoAdicionar,
+              child: Icon(Icons.add),
+              backgroundColor: Colors.blue,
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+

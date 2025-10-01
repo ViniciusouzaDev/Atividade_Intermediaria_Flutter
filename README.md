@@ -118,3 +118,4 @@ Este projeto foi desenvolvido como exercício de aprendizado em Flutter/Dart, de
 - Persistência de dados
 - Interface de usuário responsiva
 - Boas práticas de desenvolvimento
+

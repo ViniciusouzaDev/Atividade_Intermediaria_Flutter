@@ -81,3 +81,4 @@ class Tarefa {
   @override
   int get hashCode => id.hashCode;
 }
+
